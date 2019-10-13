@@ -1,5 +1,3 @@
-// COMPONENTS
-
 AFRAME.registerComponent('terminal', {
   schema: {
     position: {type: 'vec3', default: {x: -.75, y: 1.75, z: -1.75}},

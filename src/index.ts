@@ -61,25 +61,16 @@ class Terminal {
     proc;
 
     constructor(public guid:Number) {
-        //const shell = process.env[os.platform() === 'win32' ? 'COMSPEC' : 'SHELL'];
         const shell = 'bash';
         this.proc = pty.spawn(shell, [], {
         name: 'xterm-color',
         cols: 80,
         rows: 30,
         cwd: process.env.HOME,
-        //env: process.env,
         });
 
         let term = this;
         this.proc.on('data', function(data:string) {
-            //if (data == '[K') {
-            //    term.buffer[term.buffer.length - 1] = term.buffer[term.buffer.length - 1].slice(0, -1);
-            //} else {
-            //    let lines = data.split(/\n/);
-            //    term.buffer[term.buffer.length - 1] += lines[0];
-            //    term.buffer = term.buffer.concat(lines.slice(1));
-            //}
             let lines:string[] = [];
             data = term.buffer[term.buffer.length - 1] + data;
             data.split(/\n/).forEach(function(line) {
@@ -107,8 +98,6 @@ class Terminal {
         let curChunk = new TextChunck;
         let chunks:TextChunck[] = [];
         for (let line of this.buffer) {
-            //let rex = /(([^]*)(\[([0-9]+)(;([0-9]+))?m)?)*/g;
-            //let res = rex.exec(line);
             curChunk.value = line.replace(/\x1B\[[0-9]+(;[0-9]+)?m/g, '');
             chunks.push(Object.assign({}, curChunk));
         }
@@ -257,15 +246,3 @@ app.put('/terminal/', function(req, res) {
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!');
 });
-
-//import WebSocket = require('ws');
-//
-//const wss = new WebSocket.Server({ port: 8080 });
-//
-//wss.on('connection', function connection(ws) {
-//  ws.on('message', function incoming(message) {
-//    console.log('received: %s', message);
-//  });
-//
-//  ws.send('something');
-//});
