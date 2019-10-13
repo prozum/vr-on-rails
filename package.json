@@ -1,0 +1,25 @@
+{
+  "name": "vr-on-rails",
+  "version": "0.0.1",
+  "description": "",
+  "main": ".eslintrc.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "typescript": "^3.2.2",
+    "ws": "^6.1.2",
+    "xterm": "^3.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.15",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  },
+  "scripts": {
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
+  },
+  "keywords": [],
+  "author": "Niclas Moeslund Overby <noverby@prozum.dk> (http://prozum.dk)",
+  "license": "MIT"
+}
